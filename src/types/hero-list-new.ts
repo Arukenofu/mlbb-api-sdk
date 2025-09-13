@@ -1,4 +1,5 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
+import {BaseHeroRelation} from "./_shared";
 
 export interface HeroListNewResponse extends BaseResponse<BaseRecord<HeroRecord>> {}
 
@@ -16,10 +17,8 @@ interface HeroData {
     smallmap: string;
 }
 
-interface HeroRelation {
-    assist: RelationTarget;
-    strong: RelationTarget;
-    weak: RelationTarget;
+interface HeroRelation extends BaseHeroRelation<RelationTarget>{
+
 }
 
 interface RelationTarget {

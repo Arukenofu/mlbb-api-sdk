@@ -9,8 +9,7 @@ import type {HeroSkillComboResponse} from "./types/hero-skill-combo";
 import type {HeroRateDays} from "./types/_enums";
 import type {HeroRateResponse} from "./types/hero-rate";
 import type {HeroRelationResponse} from "./types/hero-relation";
-import type {HeroCounterResponse} from "./types/hero-counter";
-import type {HeroCompatibilityResponse} from "./types/hero-compatibility";
+import type {HeroCompatibilityResponse, HeroCounterResponse} from "./types/hero-counter-relations";
 import {Languages} from "./types/_core";
 
 /**

@@ -1,18 +1,19 @@
-import {BaseRecord, BaseResponse} from "./_base.js";
-import {BaseSubHero, HeroChannel, MainHeroData} from "./_shared";
+import type {BaseRecord, BaseResponse} from "./_base";
+import type {BaseSubHero, HeroChannel, MainHeroData} from "./_shared";
 
-export interface HeroDetailStatsResponse extends BaseResponse<BaseRecord<RecordItem>>{}
+export interface HeroCompatibilityResponse extends BaseResponse<BaseRecord<HeroCounterRelationRecord>>{}
+export interface HeroCounterResponse extends BaseResponse<BaseRecord<HeroCounterRelationRecord>>{}
 
-interface RecordItem {
+export interface HeroCounterRelationRecord {
     _createdAt: number;
     _id: string;
     _updatedAt: number;
-    data: HeroStats;
+    data: HeroAnalytics;
     id: number;
     sourceId: number;
 }
 
-interface HeroStats {
+export interface HeroAnalytics {
     bigrank: string;
     camp_type: string;
     main_hero: {
@@ -25,7 +26,7 @@ interface HeroStats {
     main_heroid: number;
     match_type: string;
     sub_hero: SubHero[];
-    sub_hero_last: SubHeroLast[];
+    sub_hero_last: SubHero[];
 }
 
 interface SubHero extends BaseSubHero {
@@ -34,8 +35,4 @@ interface SubHero extends BaseSubHero {
             head: string;
         };
     };
-}
-
-export interface SubHeroLast extends BaseSubHero {
-    hero_channel: never;
 }

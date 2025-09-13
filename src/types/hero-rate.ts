@@ -11,7 +11,7 @@ interface RecordItem {
     sourceId: number;
 }
 
-interface HeroWinRateStats {
+export interface HeroWinRateStats {
     bigrank: string;
     camp_type: string;
     main_heroid: number;
@@ -19,9 +19,9 @@ interface HeroWinRateStats {
     win_rate: DailyWinRate[];
 }
 
-interface DailyWinRate {
+export interface DailyWinRate {
     app_rate: number;
     ban_rate: number;
-    date: string; // формат "YYYY-MM-DD"
+    date: `${number}${number}${number}${number}-${number}${number}-${number}${number}`; // "YYYY-MM-DD"
     win_rate: number;
 }

@@ -1,5 +1,6 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
 import {HeroRankDays, HeroRankSortField, HeroRankTier, SortOrder} from "./_enums.js";
+import {HeroChannel, MainHeroData} from "./_shared";
 
 export interface HeroRankingOptions {
     days?: HeroRankDays;
@@ -22,15 +23,6 @@ interface HeroStats {
     main_hero_win_rate: number;
     main_heroid: number;
     sub_hero: SubHero[];
-}
-
-interface MainHeroData {
-    head: string;
-    name: string;
-}
-
-interface HeroChannel {
-    id: number;
 }
 
 interface SubHero {

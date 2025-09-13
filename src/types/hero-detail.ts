@@ -1,4 +1,5 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
+import {BaseHeroRelation} from "./_shared";
 
 export interface HeroDetailResponse extends BaseResponse<BaseRecord<RecordItem>>{}
 
@@ -24,7 +25,7 @@ interface HeroWrapper {
     hero: Hero;
     hero_id: number;
     painting: string;
-    relation: HeroRelation;
+    relation: HeroesRelation;
 }
 
 interface Hero {
@@ -129,10 +130,7 @@ interface SortIdData {
     sort_title: string;
 }
 
-interface HeroRelation {
-    assist: RelationDetail;
-    strong: RelationDetail;
-    weak: RelationDetail;
+interface HeroesRelation extends BaseHeroRelation<RelationDetail>{
 }
 
 interface RelationDetail {

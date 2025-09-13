@@ -1,4 +1,5 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
+import {BaseHeroRelation} from "./_shared";
 
 export interface HeroRelationResponse extends BaseResponse<BaseRecord<HeroRelationRecord>> {}
 
@@ -9,13 +10,10 @@ interface HeroRelationRecord {
         };
     };
     hero_id: number;
-    relation: HeroRelation;
+    relation: HeroesRelation;
 }
 
-interface HeroRelation {
-    assist: RelationTarget;
-    strong: RelationTarget;
-    weak: RelationTarget;
+interface HeroesRelation extends BaseHeroRelation<RelationTarget>{
 }
 
 interface RelationTarget {

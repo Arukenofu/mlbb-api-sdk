@@ -2,7 +2,7 @@ import {BaseRecord, BaseResponse} from "./_base.js";
 
 export interface HeroSkillComboResponse extends BaseResponse<BaseRecord<ComboRecord>>{}
 
-interface ComboRecord {
+export interface ComboRecord {
     _id: string;
     caption: string;
     configId: number;
@@ -17,7 +17,7 @@ interface ComboRecord {
     updatedUser: string;
 }
 
-interface ComboData {
+export interface ComboData {
     _object: number;
     desc: string;
     hero_id: number;
@@ -25,7 +25,7 @@ interface ComboData {
     title: string;
 }
 
-interface ComboSkill {
+export interface ComboSkill {
     _createdAt: number;
     _id: string;
     _updatedAt: number;
