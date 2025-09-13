@@ -13,7 +13,7 @@ import type {HeroCounterResponse} from "./types/hero-counter";
 import type {HeroCompatibilityResponse} from "./types/hero-compatibility";
 import {Languages} from "./types/_core";
 
-class MlbbAPI {
+export class MlbbAPI {
     private readonly baseURL: string;
     public readonly makeRequest: $Fetch;
 
