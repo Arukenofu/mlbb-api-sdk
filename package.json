@@ -1,0 +1,35 @@
+{
+  "name": "mlbb-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for MLBB Stats API",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite-node src/MlbbAPI.ts",
+    "clean": "rimraf dist",
+    "build:js": "tsc -p tsconfig.build.json",
+    "build:dts": "tsc -p tsconfig.dts.json",
+    "build": "npm run clean && npm run build:js && npm run build:dts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mlbb",
+    "sdk",
+    "api",
+    "typescript"
+  ],
+  "author": "Твоё имя",
+  "license": "MIT",
+  "dependencies": {
+    "ofetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "rimraf": "^6.0.1",
+    "vite-node": "^3.2.4"
+  }
+}

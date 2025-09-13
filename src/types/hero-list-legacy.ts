@@ -1,0 +1,1 @@
+export interface HeroListLegacyResponse extends Record<`${number}`, string> {}
