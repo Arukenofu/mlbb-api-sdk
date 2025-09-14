@@ -22,19 +22,10 @@ interface HeroWrapper {
     _object: number;
     head: string;
     head_big: string;
-    hero: Hero;
+    hero: HeroData;
     hero_id: number;
     painting: string;
     relation: HeroesRelation;
-}
-
-interface Hero {
-    _createdAt: number;
-    _id: string;
-    _updatedAt: number;
-    data: HeroData;
-    id: number;
-    sourceId: number;
 }
 
 interface HeroData {
