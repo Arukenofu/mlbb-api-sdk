@@ -3,3 +3,8 @@ export enum Languages {
     English = 'en',
     Indonesian = 'id',
 }
+
+export interface MlbbAPIOptions {
+    baseURL?: string;
+    language?: Languages;
+}

@@ -9,23 +9,28 @@ import type {HeroSkillComboResponse} from "./types/hero-skill-combo";
 import type {HeroRateResponse} from "./types/hero-rate";
 import type {HeroRelationResponse} from "./types/hero-relation";
 import type {HeroCompatibilityResponse, HeroCounterResponse} from "./types/hero-counter-relations";
-import {Languages} from "./types/_core";
+import {Languages, MlbbAPIOptions} from "./types/_core";
 import {HeroRateDays} from "./enums/_enums";
 
 /**
  * @description MLBB API class instance
  */
 export class MlbbAPI {
-    private readonly baseURL: string;
+    public readonly baseURL: string;
     public readonly makeRequest: $Fetch;
 
-    constructor(baseURL?: string, language: Languages = Languages.English) {
-        this.baseURL = baseURL || 'https://mlbb-stats.ridwaanhall.com/';
+    constructor(options: MlbbAPIOptions = {}) {
+        const {
+            baseURL = "https://mlbb-stats.ridwaanhall.com/",
+            language = Languages.English
+        } = options;
+
+        this.baseURL = baseURL;
         this.makeRequest = ofetch.create({
             baseURL: this.baseURL,
             query: {
-                lang: language
-            }
+                lang: language,
+            },
         });
     }
 

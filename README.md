@@ -23,7 +23,12 @@ import { MlbbAPI, Languages } from 'mlbb-sdk';
 const api = new MlbbAPI();
 
 // Or with custom base URL and language
-const api = new MlbbAPI('https://your-api-url.com/', Languages.Russian);
+const api = new MlbbAPI({
+    // default: https://mlbb-stats.ridwaanhall.com
+    baseURL: 'https://your-api-url.com/',
+    // default: Languages.English
+    language: Languages.Russian
+});
 ```
 
 ### Getting Hero List
