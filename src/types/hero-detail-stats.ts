@@ -1,9 +1,9 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
 import {BaseSubHero, HeroChannel, MainHeroData} from "./_shared";
 
-export interface HeroDetailStatsResponse extends BaseResponse<BaseRecord<RecordItem>>{}
+export interface HeroDetailStatsResponse extends BaseResponse<BaseRecord<HeroDetailStatsRecord>> {}
 
-interface RecordItem {
+interface HeroDetailStatsRecord {
     _createdAt: number;
     _id: string;
     _updatedAt: number;
@@ -36,6 +36,6 @@ interface SubHero extends BaseSubHero {
     };
 }
 
-export interface SubHeroLast extends BaseSubHero {
-    hero_channel: never;
+interface SubHeroLast extends Omit<BaseSubHero, "hero_channel"> {
+    hero_channel?: never;
 }

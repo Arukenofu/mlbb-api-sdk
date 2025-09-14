@@ -1,9 +1,12 @@
-import {BaseRecord, BaseResponse} from "./_base.js";
+import {BaseResponse} from "./_base.js";
 import {BaseHeroRelation} from "./_shared";
 
-export interface HeroDetailResponse extends BaseResponse<BaseRecord<RecordItem>>{}
+export interface HeroDetailResponse extends BaseResponse<{
+    records: HeroDetailRecord[],
+    total: number;
+}> {}
 
-interface RecordItem {
+export interface HeroDetailRecord {
     _id: string;
     caption: string;
     configId: number;
@@ -18,17 +21,24 @@ interface RecordItem {
     updatedUser: string;
 }
 
-interface HeroWrapper {
+export interface HeroWrapper {
     _object: number;
     head: string;
     head_big: string;
-    hero: HeroData;
+    hero: {
+        _createdAt: number;
+        _id: string;
+        _updatedAt: number;
+        data: HeroData;
+        id: number;
+        sourceId: number;
+    };
     hero_id: number;
     painting: string;
     relation: HeroesRelation;
 }
 
-interface HeroData {
+export interface HeroData {
     abilityshow: string[];
     difficulty: string;
     head: string;
@@ -56,12 +66,12 @@ interface HeroData {
     tale: string;
 }
 
-interface SkillGroup {
+export interface SkillGroup {
     skilllist: Skill[];
     skilllistid: string;
 }
 
-interface Skill {
+export interface Skill {
     "skillcd&cost": string;
     skilldesc: string;
     skillicon: string;
@@ -71,13 +81,13 @@ interface Skill {
     skillvideo: string;
 }
 
-interface SkillTag {
+export interface SkillTag {
     tagid: number;
     tagname: string;
     tagrgb: string;
 }
 
-interface RoadSort {
+export interface RoadSort {
     _id: string;
     caption: string;
     configId: number;
@@ -92,14 +102,14 @@ interface RoadSort {
     updatedUser: string;
 }
 
-interface RoadSortData {
+export interface RoadSortData {
     _object: number;
     road_sort_icon: string;
     road_sort_id: string;
     road_sort_title: string;
 }
 
-interface SortId {
+export interface SortId {
     _id: string;
     caption: string;
     configId: number;
@@ -114,18 +124,19 @@ interface SortId {
     updatedUser: string;
 }
 
-interface SortIdData {
+export interface SortIdData {
     _object: number;
     sort_icon: string;
     sort_id: string;
     sort_title: string;
 }
 
-interface HeroesRelation extends BaseHeroRelation<RelationDetail>{
-}
+interface HeroesRelation extends BaseHeroRelation<RelationDetail> {}
 
-interface RelationDetail {
+export interface RelationDetail {
     desc: string;
-    target_hero: { data: { head: string } }[];
+    target_hero: {
+        data: { head: string };
+    }[];
     target_hero_id: number[];
 }

@@ -20,9 +20,9 @@ interface HeroRecord {
 
 interface HeroData {
     name: string;
-    roadsort: RoadSort[];
+    roadsort: (RoadSort | "")[];
     smallmap: string;
-    sortid: (SortId | string)[];
+    sortid: (SortId | "")[];
 }
 
 interface RoadSort {

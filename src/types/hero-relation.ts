@@ -3,7 +3,7 @@ import {BaseHeroRelation} from "./_shared";
 
 export interface HeroRelationResponse extends BaseResponse<BaseRecord<HeroRelationRecord>> {}
 
-interface HeroRelationRecord {
+export interface HeroRelationRecord {
     hero: {
         data: {
             name: string;
@@ -13,9 +13,8 @@ interface HeroRelationRecord {
     relation: HeroesRelation;
 }
 
-interface HeroesRelation extends BaseHeroRelation<RelationTarget>{
-}
+interface HeroesRelation extends BaseHeroRelation<RelationTarget> {}
 
-interface RelationTarget {
+export interface RelationTarget {
     target_hero_id: number[];
 }

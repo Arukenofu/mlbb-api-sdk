@@ -26,9 +26,10 @@
     "dev": "vite-node src/MlbbAPI.ts",
     "generate": "vite-node scripts/generate-index.ts",
     "clean": "rimraf dist",
+    "test": "vite-node tests/test.ts",
     "build:js": "tsc -p tsconfig.build.json",
     "build:dts": "tsc -p tsconfig.dts.json",
-    "build": "npm run generate && npm run clean && npm run build:js && npm run build:dts",
+    "build": "npm run generate && npm run test && npm run clean && npm run build:js && npm run build:dts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

@@ -17,9 +17,7 @@ interface HeroData {
     smallmap: string;
 }
 
-interface HeroRelation extends BaseHeroRelation<RelationTarget>{
-
-}
+interface HeroRelation extends BaseHeroRelation<RelationTarget> {}
 
 interface RelationTarget {
     target_hero_id: number[];

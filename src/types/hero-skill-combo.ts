@@ -1,19 +1,19 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
 
-export interface HeroSkillComboResponse extends BaseResponse<BaseRecord<ComboRecord>>{}
+export interface HeroSkillComboResponse extends BaseResponse<BaseRecord<ComboRecord>> {}
 
 export interface ComboRecord {
     _id: string;
     caption: string;
     configId: number;
-    createdAt: number;
+    createdAt: number; // timestamp (ms)
     createdUser: string;
     data: ComboData;
     dynamic: unknown | null;
     id: number;
     linkId: number[];
     sort: number;
-    updatedAt: number;
+    updatedAt: number; // timestamp (ms)
     updatedUser: string;
 }
 
@@ -29,10 +29,12 @@ export interface ComboSkill {
     _createdAt: number;
     _id: string;
     _updatedAt: number;
-    data: {
-        skillicon: string;
-        skillid: number;
-    };
+    data: ComboSkillData;
     id: number;
     sourceId: number;
+}
+
+export interface ComboSkillData {
+    skillicon: string;
+    skillid: number;
 }
