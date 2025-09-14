@@ -8,13 +8,27 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    },
+    "./enums": {
+      "import": "./dist/enums.js",
+      "types": "./dist/enums.d.ts"
+    }
+  },
   "scripts": {
     "dev": "vite-node src/MlbbAPI.ts",
     "generate": "vite-node scripts/generate-index.ts",
     "clean": "rimraf dist",
     "build:js": "tsc -p tsconfig.build.json",
     "build:dts": "tsc -p tsconfig.dts.json",
-    "build": "npm run clean && npm run build:js && npm run build:dts",
+    "build": "npm run generate && npm run clean && npm run build:js && npm run build:dts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

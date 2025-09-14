@@ -6,11 +6,11 @@ import type {HeroPositionOptions, HeroPositionResponse} from "./types/hero-posit
 import type {HeroDetailResponse} from "./types/hero-detail";
 import type {HeroDetailStatsResponse} from "./types/hero-detail-stats";
 import type {HeroSkillComboResponse} from "./types/hero-skill-combo";
-import type {HeroRateDays} from "./types/_enums";
 import type {HeroRateResponse} from "./types/hero-rate";
 import type {HeroRelationResponse} from "./types/hero-relation";
 import type {HeroCompatibilityResponse, HeroCounterResponse} from "./types/hero-counter-relations";
 import {Languages} from "./types/_core";
+import {HeroRateDays} from "./enums/_enums";
 
 /**
  * @description MLBB API class instance

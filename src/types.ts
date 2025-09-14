@@ -1,7 +1,3 @@
-// core
-export * from "./MlbbAPI";
-
-// types
 export * from "./types/hero-counter-relations";
 export * from "./types/hero-detail-stats";
 export * from "./types/hero-detail";
@@ -15,6 +11,3 @@ export * from "./types/hero-skill-combo";
 export * from "./types/_base";
 export * from "./types/_core";
 export * from "./types/_shared";
-
-// enums
-export * from "./enums/_enums";

@@ -1,4 +1,4 @@
-import {HeroLane, HeroRole} from "./_enums.js";
+import {HeroLane, HeroRole} from "../enums/_enums.js";
 import {BaseRecord, BaseResponse} from "./_base.js";
 
 export interface HeroPositionOptions {

@@ -1,6 +1,6 @@
 import {BaseRecord, BaseResponse} from "./_base.js";
-import {HeroRankDays, HeroRankSortField, HeroRankTier, SortOrder} from "./_enums.js";
 import {HeroChannel, MainHeroData} from "./_shared";
+import {HeroRankDays, HeroRankSortField, HeroRankTier, SortOrder} from "../enums/_enums";
 
 export interface HeroRankingOptions {
     days?: HeroRankDays;
