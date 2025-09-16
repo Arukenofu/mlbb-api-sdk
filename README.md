@@ -139,6 +139,59 @@ The SDK provides full TypeScript typing for all API responses:
 - `HeroCounterResponse` - Hero counter response
 - `HeroCompatibilityResponse` - Hero compatibility response
 
+## 🧪 Experimental
+
+Experimental utilities are available under the `mlbb-sdk/experimental` entry. These APIs are subject to change between minor versions.
+
+### normalizeApiResponse
+
+Flattens API responses by unwrapping nested `data` fields and returns a convenient shape `{ total, records }`.
+
+```typescript
+import { MlbbAPI } from 'mlbb-sdk';
+import { normalizeApiResponse } from 'mlbb-sdk/experimental';
+
+const api = new MlbbAPI();
+
+// Example with hero list
+const response = await api.getHeroList();
+
+// Default mode is "safe"
+const normalized = normalizeApiResponse(response);
+// normalized => { total: number, records: Array<...flattened items...> }
+console.log(normalized.total, normalized.records[0]);
+```
+
+#### Modes
+
+- `safe` (default): unwraps `data` only when it is the only key at that level.
+- `loose`: aggressively unwraps any `data` keys at all levels.
+
+```typescript
+// Safe (default)
+const safeList = normalizeApiResponse(response, { mode: 'safe' });
+
+// Loose
+const looseList = normalizeApiResponse(response, { mode: 'loose' });
+```
+
+#### Typing
+
+`normalizeApiResponse` preserves types with generics. You can extract the record item type from the response typings for best inference.
+
+```typescript
+import type { HeroListNewResponse } from 'mlbb-sdk/types';
+import { normalizeApiResponse } from 'mlbb-sdk/experimental';
+
+type HeroListRecord = HeroListNewResponse['data']['records'][number];
+
+const response = await api.getHeroList();
+const normalized = normalizeApiResponse<HeroListRecord>(response);
+// normalized: { total: number; records: HeroListRecord[] }
+```
+
+Note: You can also pass an already unwrapped `BaseRecord<T>` to `normalizeApiResponse` if you store `response.data` elsewhere.
+
 ## 🔧 Development
 
 ### Installing Dependencies
