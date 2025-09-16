@@ -14,15 +14,18 @@ const srcDir = join(__dirname, "../src");
 
 const typesDir = join(srcDir, "types");
 const enumsDir = join(srcDir, "enums");
+const experimentalDir = join(srcDir, "experimental");
 
 const indexFile = join(srcDir, "index.ts");
 const typesFile = join(srcDir, "types.ts");
 const enumsFile = join(srcDir, "enums.ts");
+const experimentalFile = join(srcDir, "experimental.ts");
 
 const staticExports = [`export * from "./MlbbAPI";`, ""];
 
 const typeExports = generateExports(typesDir, "types");
 const enumExports = generateExports(enumsDir, "enums");
+const experimentalExports = generateExports(experimentalDir, "experimental");
 
 const indexContent = [
     "// core",
@@ -42,4 +45,7 @@ writeFileSync(typesFile, typesContent, "utf8");
 const enumsContent = [...enumExports, ""].join("\n");
 writeFileSync(enumsFile, enumsContent, "utf8");
 
-console.log("index.ts, types.ts, enums.ts generated");
+const experimentalContent = [...experimentalExports, ""].join("\n");
+writeFileSync(experimentalFile, experimentalContent, "utf8");
+
+console.log("index.ts, types.ts, enums.ts, experimental.ts generated");
