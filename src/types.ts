@@ -9,5 +9,7 @@ export * from "./types/hero-rate";
 export * from "./types/hero-relation";
 export * from "./types/hero-skill-combo";
 export * from "./types/_base";
+export * from "./types/_cache";
 export * from "./types/_core";
+export * from "./types/_endpoints";
 export * from "./types/_shared";

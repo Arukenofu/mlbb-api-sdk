@@ -21,6 +21,10 @@
       "import": "./dist/enums.js",
       "types": "./dist/enums.d.ts"
     },
+    "./cache": {
+      "import": "./dist/cache.js",
+      "types": "./dist/cache.d.ts"
+    },
     "./experimental": {
       "import": "./dist/experimental.js",
       "types": "./dist/experimental.d.ts"
@@ -30,7 +34,7 @@
     "dev": "vite-node src/MlbbAPI.ts",
     "generate": "vite-node scripts/generate-index.ts",
     "clean": "rimraf dist",
-    "test": "vite-node tests/test.ts",
+    "test": "vitest run",
     "build:js": "tsc -p tsconfig.build.json",
     "build:dts": "tsc -p tsconfig.dts.json",
     "build": "npm run generate && npm run test && npm run clean && npm run build:js && npm run build:dts",
@@ -42,7 +46,7 @@
     "api",
     "typescript"
   ],
-  "author": "Твоё имя",
+  "author": "Arukenofu (Dylan)",
   "license": "MIT",
   "dependencies": {
     "ofetch": "^1.0.0"
@@ -51,6 +55,7 @@
     "@types/node": "^24.3.3",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.0",
-    "vite-node": "^3.2.4"
+    "vite-node": "^3.2.4",
+    "vitest": "^3.2.4"
   }
 }

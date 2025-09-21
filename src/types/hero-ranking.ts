@@ -3,12 +3,12 @@ import {HeroChannel, MainHeroData} from "./_shared";
 import {HeroRankDays, HeroRankSortField, HeroRankTier, SortOrder} from "../enums/_enums";
 
 export interface HeroRankingOptions {
-    days?: HeroRankDays;
-    rank?: HeroRankTier;
-    size?: number;
-    index?: number;
-    sort_field?: HeroRankSortField;
-    sort_order?: SortOrder;
+    days: HeroRankDays;
+    rank: HeroRankTier;
+    size: number;
+    index: number;
+    sort_field: HeroRankSortField;
+    sort_order: SortOrder;
 }
 
 export interface HeroRankingResponse extends BaseResponse<BaseRecord<HeroStats>> {}

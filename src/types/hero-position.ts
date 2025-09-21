@@ -2,10 +2,10 @@ import {HeroLane, HeroRole} from "../enums/_enums.js";
 import {BaseRecord, BaseResponse} from "./_base.js";
 
 export interface HeroPositionOptions {
-    role?: HeroRole;
-    lane?: HeroLane;
-    size?: number;
-    index?: number;
+    role: HeroRole;
+    lane: HeroLane;
+    size: number;
+    index: number;
 }
 
 export interface HeroPositionResponse extends BaseResponse<BaseRecord<HeroRecord>> {}
