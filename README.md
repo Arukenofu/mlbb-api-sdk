@@ -1,10 +1,10 @@
 # MLBB SDK
 
-TypeScript SDK for working with [ridwaanhali's](https://github.com/ridwaanhall/api-mobilelegends) MLBB Stats API - an unofficial API for retrieving statistics and data about Mobile Legends: Bang Bang heroes.
+A TypeScript SDK for working with [ridwaanhali's](https://github.com/ridwaanhall/api-mobilelegends) MLBB Stats API - an unofficial API for retrieving statistics and data about Mobile Legends: Bang Bang heroes.
 
 ## 📋 Description
 
-This SDK provides a convenient TypeScript interface for working with MLBB Stats API, allowing you to retrieve information about heroes, their statistics, rankings, positions, and much more.
+This SDK provides a convenient TypeScript interface for working with MLBB Stats API, allowing you to retrieve information about heroes, their statistics, rankings, positions, and much more. It includes built-in caching, request deduplication, and full TypeScript support.
 
 ## 🚀 Installation
 
@@ -19,15 +19,18 @@ npm install mlbb-sdk
 ```typescript
 import { MlbbAPI, Languages } from 'mlbb-sdk';
 
-// Create API instance
+// Create API instance with default settings
 const api = new MlbbAPI();
 
-// Or with custom base URL and language
+// Or with custom configuration
 const api = new MlbbAPI({
-    // default: https://mlbb-stats.ridwaanhall.com
-    baseURL: 'https://your-api-url.com/',
-    // default: Languages.English
-    language: Languages.Russian
+    baseURL: 'https://mlbb-stats.ridwaanhall.com/',
+    language: Languages.English,
+    cache: {
+        enabled: true,
+        defaultTTL: 300000, // 5 minutes
+        memoryMaxEntries: 500
+    }
 });
 ```
 
@@ -38,7 +41,7 @@ const api = new MlbbAPI({
 const heroList = await api.getHeroList();
 console.log(heroList.data.records);
 
-// Get legacy hero list
+// Get legacy hero list (deprecated)
 const legacyHeroList = await api.getHeroListLegacy();
 ```
 
@@ -48,13 +51,15 @@ const legacyHeroList = await api.getHeroListLegacy();
 import { HeroRankDays, HeroRankTier, HeroRankSortField, SortOrder } from 'mlbb-sdk';
 
 const ranking = await api.getHeroRanking({
-  days: HeroRankDays.D7,           // Last 7 days
-  tier: HeroRankTier.Mythic,       // Mythic tier only
-  per_page: 20,                    // 20 records per page
-  page: 1,                         // First page
-  sort_field: HeroRankSortField.WinRate,  // Sort by win rate
-  sort_order: SortOrder.Desc       // Descending order
+  days: HeroRankDays.D7,                    // Last 7 days
+  tier: HeroRankTier.Mythic,                // Mythic tier only
+  per_page: 20,                             // 20 records per page
+  page: 1,                                  // First page
+  sort_field: HeroRankSortField.WinRate,    // Sort by win rate
+  sort_order: SortOrder.Desc                // Descending order
 });
+
+console.log(ranking.data.records);
 ```
 
 ### Getting Hero Positions
@@ -63,8 +68,8 @@ const ranking = await api.getHeroRanking({
 import { HeroRole, HeroLane } from 'mlbb-sdk';
 
 const positions = await api.getHeroPosition({
-  role: HeroRole.Mage,             // Mages only
-  lane: HeroLane.Mid,              // Mid lane only
+  role: HeroRole.Mage,                     // Mages only
+  lane: HeroLane.Mid,                      // Mid lane only
   per_page: 21,
   page: 1
 });
@@ -76,10 +81,10 @@ const positions = await api.getHeroPosition({
 // Basic hero information
 const heroDetail = await api.getHeroDetail(1); // Hero ID
 
-// Hero statistics
+// Hero statistics with performance metrics
 const heroStats = await api.getHeroDetailStats(1);
 
-// Hero skill combos
+// Hero skill combinations and strategies
 const skillCombo = await api.getHeroSkillCombo(1);
 
 // Hero rating over time period
@@ -92,8 +97,41 @@ const heroRelation = await api.getHeroRelation(1);
 // Hero counters
 const heroCounter = await api.getHeroCounter(1);
 
-// Hero compatibility
+// Hero compatibility with other heroes
 const heroCompatibility = await api.getHeroCompatibility(1);
+```
+
+### Caching
+
+The SDK includes built-in caching with configurable TTL and memory management:
+
+```typescript
+// Configure cache options
+const api = new MlbbAPI({
+    cache: {
+        enabled: true,
+        defaultTTL: 300000,        // 5 minutes default
+        memoryMaxEntries: 500,     // Max cache entries
+        ttlOverrides: {
+            '/api/hero-list-new': 600000,  // 10 minutes for hero list
+            '/api/hero-rank': 120000       // 2 minutes for rankings
+        }
+    }
+});
+
+// Use cache for specific requests
+const heroList = await api.getHeroList({
+    mode: 'default',  // Use cache
+    ttl: 600000       // Custom TTL for this request
+});
+
+// Skip cache for fresh data
+const freshRanking = await api.getHeroRanking({}, {
+    mode: 'no-store'  // Bypass cache
+});
+
+// Clear cache manually
+api.clearCache();
 ```
 
 ## 🌍 Supported Languages
@@ -101,34 +139,37 @@ const heroCompatibility = await api.getHeroCompatibility(1);
 The SDK supports the following languages:
 
 - `Languages.English` (en) - English (default)
-- `Languages.Russian` (ru) - Russian
+- `Languages.Russian` (ru) - Russian  
 - `Languages.Indonesian` (id) - Indonesian
 
 ```typescript
-const api = new MlbbAPI(undefined, Languages.Russian);
+const api = new MlbbAPI({
+    language: Languages.Russian
+});
 ```
 
 ## 📊 Available API Methods
 
-| Method | Description |
-|-------|----------|
-| `getHeroList()` | Get new hero list |
-| `getHeroListLegacy()` | Get legacy hero list |
-| `getHeroRanking(options?)` | Get hero rankings |
-| `getHeroPosition(options?)` | Get hero positions |
-| `getHeroDetail(heroId)` | Get detailed hero information |
-| `getHeroDetailStats(heroId)` | Get hero statistics |
-| `getHeroSkillCombo(heroId)` | Get hero skill combos |
-| `getHeroRate(heroId, pastDays)` | Get hero rating over time period |
-| `getHeroRelation(heroId)` | Get hero relationships |
-| `getHeroCounter(heroId)` | Get hero counters |
-| `getHeroCompatibility(heroId)` | Get hero compatibility |
+| Method | Description | Parameters |
+|--------|-------------|------------|
+| `getHeroList(cache?)` | Get new hero list with IDs, names, and images | Optional cache options |
+| `getHeroListLegacy(cache?)` | Get legacy hero list (deprecated) | Optional cache options |
+| `getHeroRanking(options?, cache?)` | Get hero rankings with filters | Ranking options, cache options |
+| `getHeroPosition(options?, cache?)` | Get hero positions by role/lane | Position options, cache options |
+| `getHeroDetail(heroId, cache?)` | Get detailed hero information | Hero ID (1-127), cache options |
+| `getHeroDetailStats(heroId, cache?)` | Get hero statistics and performance | Hero ID (1-127), cache options |
+| `getHeroSkillCombo(heroId, cache?)` | Get hero skill combinations | Hero ID (1-127), cache options |
+| `getHeroRate(heroId, pastDays, cache?)` | Get hero rating over time | Hero ID (1-127), time period, cache options |
+| `getHeroRelation(heroId, cache?)` | Get hero relationships | Hero ID (1-127), cache options |
+| `getHeroCounter(heroId, cache?)` | Get hero counters | Hero ID (1-127), cache options |
+| `getHeroCompatibility(heroId, cache?)` | Get hero compatibility | Hero ID (1-127), cache options |
 
 ## 🎯 Data Types
 
 The SDK provides full TypeScript typing for all API responses:
 
 - `HeroListNewResponse` - Hero list response
+- `HeroListLegacyResponse` - Legacy hero list response
 - `HeroRankingResponse` - Hero ranking response
 - `HeroPositionResponse` - Hero position response
 - `HeroDetailResponse` - Hero detail response
@@ -139,7 +180,7 @@ The SDK provides full TypeScript typing for all API responses:
 - `HeroCounterResponse` - Hero counter response
 - `HeroCompatibilityResponse` - Hero compatibility response
 
-## 🧪 Experimental
+## 🧪 Experimental Features
 
 Experimental utilities are available under the `mlbb-sdk/experimental` entry. These APIs are subject to change between minor versions.
 
@@ -224,6 +265,33 @@ npm run generate
 ```bash
 npm run dev
 ```
+
+### Testing
+
+```bash
+npm test
+```
+
+## 📦 Package Structure
+
+The SDK exports multiple entry points:
+
+- `mlbb-sdk` - Main SDK with API client and types
+- `mlbb-sdk/types` - TypeScript type definitions only
+- `mlbb-sdk/enums` - Enum definitions only
+- `mlbb-sdk/experimental` - Experimental utilities
+
+## 🔄 Request Deduplication
+
+The SDK automatically deduplicates identical requests to prevent unnecessary API calls when multiple requests are made simultaneously.
+
+## ⚡ Performance Features
+
+- **Built-in caching** with configurable TTL
+- **Request deduplication** to avoid duplicate API calls
+- **Memory-efficient** LRU cache implementation
+- **TypeScript support** with full type safety
+- **Configurable cache stores** for different environments
 
 ## 📝 License
 
