@@ -10,7 +10,8 @@ describe("MlbbAPI wrapper", () => {
         const api = new MlbbAPI();
 
         const a = await api.getHeroList();
-        expect(a).toEqual({ ok: true });
+
+        expect(a).toEqual({message: 'OK'});
         expect(__getStats().calls).toBe(1);
 
         await api.getHeroList();

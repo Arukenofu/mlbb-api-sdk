@@ -1,5 +1,4 @@
 import type {HeroListNewResponse} from "./hero-list-new";
-import type {HeroListLegacyResponse} from "./hero-list-legacy";
 import type {HeroRankingResponse} from "./hero-ranking";
 import type {HeroPositionResponse} from "./hero-position";
 import type {HeroDetailResponse} from "./hero-detail";
@@ -23,8 +22,7 @@ export type MlbbApiEndpoints =
     | `/api/hero-compatibility/${number}/`;
 
 export type MlbbApiEndpointResponse<P> =
-    P extends "/api/hero-list-new" ? HeroListNewResponse :
-    P extends "/api/hero-list" ? HeroListLegacyResponse :
+    P extends "/api/hero-list" ? HeroListNewResponse :
     P extends "/api/hero-rank" ? HeroRankingResponse :
     P extends "/api/hero-position" ? HeroPositionResponse :
     P extends `/api/hero-detail/${number}/` ? HeroDetailResponse :

@@ -35,14 +35,6 @@ export class MlbbAPI {
      * @description Get hero list new. it shows hero id, hero name, hero image head, and hero image map.
      */
     async getHeroList(cache?: CacheOptions) {
-        return this.makeRequest("/api/hero-list-new", undefined, cache);
-    }
-
-    /**
-     * @deprecated use {@link getHeroList} instead.
-     * @description Get hero list.
-     */
-    async getHeroListLegacy(cache?: CacheOptions) {
         return this.makeRequest("/api/hero-list", undefined, cache);
     }
 

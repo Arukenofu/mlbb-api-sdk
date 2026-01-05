@@ -1,3 +1,5 @@
+import { ofetch as realOfetch } from "ofetch";
+
 export type Route = {
     etag?: string;
     lastModified?: string;
@@ -16,7 +18,6 @@ export const __setRoute = (path: string, route: Route) => {
 export const __getStats = () => ({ calls: stats.calls });
 export const __getLastHeaders = (path: string) => lastHeaders.get(path);
 
-/** ➜ вот это добавь */
 export const __resetOfetchMock = () => {
     routes.clear();
     lastHeaders.clear();
@@ -25,12 +26,19 @@ export const __resetOfetchMock = () => {
 
 export const ofetch = {
     create(cfg: { baseURL?: string; query?: Record<string, any> }) {
+        const real = realOfetch.create(cfg);
+
         return {
             async raw<T>(path: string, options?: { headers?: Record<string, string> }) {
                 stats.calls++;
-                const r = routes.get(path) ?? {};
+
                 const headersIn = options?.headers ?? {};
                 lastHeaders.set(path, headersIn);
+
+                const r = routes.get(path);
+                if (!r) {
+                    return real.raw<T>(path, options as any);
+                }
 
                 if (r.failNext) {
                     r.failNext = false;
@@ -44,8 +52,11 @@ export const ofetch = {
                     return {
                         status: 304,
                         headers: new Headers(
-                            r.etag ? { etag: r.etag } :
-                                r.lastModified ? { "last-modified": r.lastModified } : {}
+                            r.etag
+                                ? { etag: r.etag }
+                                : r.lastModified
+                                    ? { "last-modified": r.lastModified }
+                                    : {}
                         ),
                     } as any;
                 }
